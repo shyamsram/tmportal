@@ -22,22 +22,6 @@ public class LoginController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-	@RequestMapping(value="/deleteUser/{value}", method=RequestMethod.GET)
-	public ModelAndView removeUser(@PathVariable("value") String value){
-				
-		List<String> list = getList();
-		List<String> dept = getDept();
-		list.remove(Integer.parseInt(value));
-		dept.remove(Integer.parseInt(value));
-		
-		ModelAndView model = new ModelAndView("HomePage");
-		model.addObject("lists", list);
-		model.addObject("departments", dept);
-		
-		return model;
-			
-	}
-
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView showLoginForm(){
 		return new ModelAndView("login1");
@@ -49,47 +33,13 @@ public class LoginController {
 		Boolean loginStatus = teamDetailsService.loginCustomer(user.getUserId(),user.getPassword());
 		if(loginStatus){
             System.out.println("login status is : " + loginStatus);
-			List<String> list = getList();
-			List<String> dept = getDept();
 			model = new ModelAndView("index");
             model.addObject("teamList",teamDetailsService.getTeamList(1));
-            model.addObject("lists", list);
-			model.addObject("departments", dept);
 		} else  {
             System.out.println("login status is : " + loginStatus);
             model = new ModelAndView("index.html");
-			model.addObject("status", "Login Failure");
+			model.getModelMap().addAttribute("status", "Login Failure");
 		}
 		return model;
 	}
-	
-	private List<String> getList() {
-
-		List<String> list = new ArrayList<String>();
-		list.add("Tony");
-		list.add("Rich");
-		list.add("John");
-		list.add("Mike");
-		
-
-		return list;
-
-	}
-	
-	private List<String> getDept() {
-
-		List<String> list = new ArrayList<String>();
-		list.add("Retail");
-		list.add("Business");
-		list.add("Retail");
-		list.add("Business");
-		
-
-		return list;
-
-	}
-
-
-
-	
 }
