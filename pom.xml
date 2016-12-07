@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>tmportal</name>
-	<description>Demo project for Spring Boot</description>
+	<description>tmportal</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
